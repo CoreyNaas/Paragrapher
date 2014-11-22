@@ -4,8 +4,8 @@
 
 using namespace std;
 
-void newProject();
-void continueProject();
+string newProject();
+string continueProject();
 void projectWorkspace(string projName);
 
 int main(){
@@ -16,27 +16,29 @@ int main(){
 	cout << "Type \"quit\" to quit Paragrapher" << endl;
 	
 	string menuSelect;
-	do{
-	cin >> menuSelect;
-	if(menuSelect == "new"){ //create new project
-		newProject();
-		break;
-	}else if(menuSelect == "continue"){ //continue new project
-		continueProject();
-		break;
-	}else if(menuSelect == "quit"){ //quits program
-		return 0;
-	}else{ // incorrect input
-		cout << "Incorrect input. Please try again: ";
+	string projectName = "";
+	while(projectName == ""){
+		cin >> menuSelect;
+		if(menuSelect == "new"){ //create new project
+			projectName = newProject();
+			break;
+		}else if(menuSelect == "continue"){ //continue new project
+			projectName = continueProject();
+			break;
+		}else if(menuSelect == "quit"){ //quits program
+			return 0;
+		}else{ // incorrect input
+			cout << "Incorrect input. Please try again: ";
+		}
 	}
-	}while(menuSelect != "new" | menuSelect != "continue");
-
+	
+	projectWorkspace(projectName);
 	cout << "ending...";
 	return 0;
 }
 
-void newProject(){ /*gets data from user about project contents*/
-	string newProgName, newProgTitle, newAuthName;
+string newProject(){ /*gets data from user about project contents*/
+	string newProgName = "", newProgTitle = "", newAuthName = "";
 
 	cout << "Project file name (no spaces): ";
 		getline(cin, newProgName, '\n'); //Buggy, skips first instance of getline
@@ -50,19 +52,17 @@ void newProject(){ /*gets data from user about project contents*/
 	/*pass newProgName to projectWorkspace to load newly create file and allow
 	user to begin working*/
 	
-	projectWorkspace(newProgName);
-	return;
+	return newProgName;
 }
 
-void continueProject(){ /* gets filename from user*/
-	string projName;
+string continueProject(){ /* gets filename from user*/
+	string projName = "";
 	
 	cout << "Enter the name of project to continue: ";
 	cin >> projName;
-	cout << "Loading..";
-	
-	projectWorkspace(projName);
-	return;
+	cout << "Loading.." << endl;
+
+	return projName;
 }
 
 void projectWorkspace(string projName){
