@@ -4,8 +4,8 @@
 
 using namespace std;
 
-string newProject();
-string continueProject();
+void newProject();
+void continueProject();
 void projectWorkspace(string projName);
 
 int main(){
@@ -35,7 +35,7 @@ int main(){
 	return 0;
 }
 
-string newProject(){ /*gets data from user about project contents*/
+void newProject(){ /*gets data from user about project contents*/
 	string newProgName, newProgTitle, newAuthName;
 
 	cout << "Project file name (no spaces): ";
@@ -49,10 +49,24 @@ string newProject(){ /*gets data from user about project contents*/
 	
 	/*pass newProgName to projectWorkspace to load newly create file and allow
 	user to begin working*/
+	
+	projectWorkspace(newProgName);
+	return;
 }
 
-string continueProject(){
-
-
+void continueProject(){ /* gets filename from user*/
+	string projName;
+	
+	cout << "Enter the name of project to continue: ";
+	cin >> projName;
+	cout << "Loading..";
+	
+	projectWorkspace(projName);
+	return;
 }
+
+void projectWorkspace(string projName){
+	cout << projName;
+}
+
 
