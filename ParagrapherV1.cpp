@@ -17,7 +17,7 @@ int main(){
 	
 	string menuSelect;
 	string projectName = "";
-	while(projectName == ""){
+	for(int i = 0; ; i++){
 		cin >> menuSelect;
 		if(menuSelect == "new"){ //create new project
 			projectName = newProject();
@@ -32,8 +32,8 @@ int main(){
 		}
 	}
 	
-	projectWorkspace(projectName);
-	cout << "ending...";
+	projectWorkspace(projectName); //Where literally ALL of the magic happens
+	cout << "Goodbye!";
 	return 0;
 }
 
@@ -45,7 +45,7 @@ string newProject(){ /*gets data from user about project contents*/
 		cout << "Project file name (no spaces): ";
 		cin >> newProjName;
 		write.open(newProjName.c_str());
-		if(write.fail()){ //!!needs working on!!
+		if(write.fail()){
 			write.close();
 			break;
 		}else{
@@ -75,6 +75,7 @@ string continueProject(){ /* gets filename from user*/
 	
 	cout << "Enter the name of project to continue: ";
 	cin >> projName;
+	
 	cout << "Loading.." << endl;
 
 	return projName;
@@ -84,10 +85,20 @@ void projectWorkspace(string projName){
 	ofstream write;
 	write.open(projName.c_str(), ios::app);
 	
-	write << "This is the sample!";
-	//writey stuff
+	//project title from file goes here
+	
+	cout << "Loaded! Type \"save\" to save and exit" << endl;
+	string par;
+	for(int i = 0; ; i++){
+		getline(cin, par);
+		if(par == "save"){
+			break;
+		}
+		write << par << endl;
+	}
 	
 	write.close();
+	cout << "Saved!" << endl;
 }
 
 
