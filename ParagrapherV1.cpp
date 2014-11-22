@@ -38,21 +38,36 @@ int main(){
 }
 
 string newProject(){ /*gets data from user about project contents*/
-	string newProgName = "", newProgTitle = "", newAuthName = "";
-
-	cout << "Project file name (no spaces): ";
-		getline(cin, newProgName, '\n'); //Buggy, skips first instance of getline
+	string newProjName = "", newProjTitle = "", newAuthName = "";
+	fstream write;
+	
+	for(int i = 0; ; i++){
+		cout << "Project file name (no spaces): ";
+		cin >> newProjName;
+		write.open(newProjName.c_str());
+		if(write.fail()){ //!!needs working on!!
+			write.close();
+			break;
+		}else{
+			cout << "Error: File already exists" << endl;
+		}
+	}
 	cout << "Title of project: ";
-		getline(cin, newProgTitle, '\n');
+		getline(cin, newProjTitle, '\n');
 	cout << "Name of Author: ";
 		getline(cin, newAuthName, '\n');
 		
 	/*create new file, insert above data into file*/
+	write.open(newProjName.c_str(), ios::out);
 	
-	/*pass newProgName to projectWorkspace to load newly create file and allow
+	write << newProjTitle << endl;
+	write << newAuthName << endl;
+	
+	write.close();
+	
+	/*pass newProjName to projectWorkspace to load newly create file and allow
 	user to begin working*/
-	
-	return newProgName;
+	return newProjName;
 }
 
 string continueProject(){ /* gets filename from user*/
@@ -66,7 +81,13 @@ string continueProject(){ /* gets filename from user*/
 }
 
 void projectWorkspace(string projName){
-	cout << projName;
+	ofstream write;
+	write.open(projName.c_str(), ios::app);
+	
+	write << "This is the sample!";
+	//writey stuff
+	
+	write.close();
 }
 
 
