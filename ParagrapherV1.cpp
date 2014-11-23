@@ -44,6 +44,7 @@ string newProject(){ /*gets data from user about project contents*/
 	for(int i = 0; ; i++){
 		cout << "Project file name (no spaces): ";
 		cin >> newProjName;
+		cin.ignore(1, '\n'); //fixes problem with getline below
 		write.open(newProjName.c_str());
 		if(write.fail()){
 			write.close();
@@ -100,5 +101,3 @@ void projectWorkspace(string projName){
 	write.close();
 	cout << "Saved!" << endl;
 }
-
-
