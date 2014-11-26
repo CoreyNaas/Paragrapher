@@ -4,8 +4,15 @@
 
 using namespace std;
 
+/* creates new project file based on user's input */
 string newProject();
+
+/* allows user to give project filename to load from
+program directory */
 string continueProject();
+
+/* takes user input from newProject or continueProject
+and load project for user to modify */
 void projectWorkspace(string projName);
 
 int main(){
@@ -15,8 +22,10 @@ int main(){
 	cout << "Type \"continue\" to continue a project" << endl;
 	cout << "Type \"quit\" to quit Paragrapher" << endl;
 	
-	string menuSelect;
-	string projectName = "";
+	string menuSelect; //variable holds user input for menu selection
+	string projectName = ""; // variable holds project filename from user for workspace
+	
+	/* loop holds main menu for program */
 	for(int i = 0; ; i++){
 		cin >> menuSelect;
 		if(menuSelect == "new"){ //create new project
@@ -32,7 +41,10 @@ int main(){
 		}
 	}
 	
-	projectWorkspace(projectName); //Where literally ALL of the magic happens
+	/* passes project filename from user into workspace */
+	projectWorkspace(projectName);
+	
+	// informs user program is ending, give visual notice that program has reached the end
 	cout << "Goodbye!";
 	return 0;
 }
@@ -44,7 +56,7 @@ string newProject(){ /*gets data from user about project contents*/
 	for(int i = 0; ; i++){
 		cout << "Project file name (no spaces): ";
 		cin >> newProjName;
-		cin.ignore(1, '\n'); //fixes problem with getline below
+		cin.ignore(1, '\n'); /*fixes problem with getline below*/
 		write.open(newProjName.c_str());
 		if(write.fail()){
 			write.close();
@@ -66,30 +78,43 @@ string newProject(){ /*gets data from user about project contents*/
 	
 	write.close();
 	
-	/*pass newProjName to projectWorkspace to load newly create file and allow
-	user to begin working*/
+	/*pass newProjName to projectWorkspace to load newly
+	create file and allow user to begin working*/
 	return newProjName;
 }
+
 
 string continueProject(){ /* gets filename from user*/
 	string projName = "";
 	
+	/* gets filename from user to load */
 	cout << "Enter the name of project to continue: ";
 	cin >> projName;
 	
+	/* Give the user something to read */
 	cout << "Loading.." << endl;
 
 	return projName;
 }
 
 void projectWorkspace(string projName){
+	// IO stream created for user input to go into file
 	ofstream write;
+	
+	/* Open output stream for project filename gotten
+	from user, allows input to append to existing file */
 	write.open(projName.c_str(), ios::app);
 	
 	//project title from file goes here
 	
 	cout << "Loaded! Type \"save\" to save and exit" << endl;
+	
+	// variable holds paragraph to be written to file
 	string par;
+	
+	/* loop waits for user to enter "save" to break and
+	go to end of function, otherwise writes contents of par to file
+	and repeats */
 	for(int i = 0; ; i++){
 		getline(cin, par);
 		if(par == "save"){
@@ -98,6 +123,7 @@ void projectWorkspace(string projName){
 		write << par << endl;
 	}
 	
+	/* closes output stream to project file */
 	write.close();
 	cout << "Saved!" << endl;
 }
