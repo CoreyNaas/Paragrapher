@@ -11,6 +11,9 @@ string newProject();
 program directory */
 string continueProject();
 
+/* allows a user to open a project file to be viewed and/or added to */
+void viewProject();
+
 /* takes user input from newProject or continueProject
 and load project for user to modify */
 void projectWorkspace(string projName);
@@ -20,6 +23,7 @@ int main(){
 	cout << "Welcome to Paragrapher!" << endl;
 	cout << "Type \"new\" to start a new project" << endl;
 	cout << "Type \"continue\" to continue a project" << endl;
+	cout << "Type \"view\" to view a project" << endl;
 	cout << "Type \"quit\" to quit Paragrapher" << endl;
 	
 	string menuSelect; //variable holds user input for menu selection
@@ -34,6 +38,14 @@ int main(){
 		}else if(menuSelect == "continue"){ //continue new project
 			projectName = continueProject();
 			break;
+		}else if(menuSelect == "view"){ //view an existing project
+			viewProject();
+			cout << "Welcome to Paragrapher!" << endl;
+			cout << "Type \"new\" to start a new project" << endl;
+			cout << "Type \"continue\" to continue a project" << endl;
+			cout << "Type \"view\" to view a project" << endl;
+			cout << "Type \"quit\" to quit Paragrapher" << endl;
+			continue;
 		}else if(menuSelect == "quit"){ //quits program
 			return 0;
 		}else{ // incorrect input
@@ -95,6 +107,35 @@ string continueProject(){ /* gets filename from user*/
 	cout << "Loading.." << endl;
 
 	return projName;
+}
+
+void viewProject(){
+	/* IO stream created for user input for filename */
+	fstream read;
+	
+	string projName = ""; //variable holds filename from user
+	
+	/* gets filename from user to load and view */
+	cout << "Enter the name of project to view: ";
+	cin >> projName;
+	
+	cout << "Press enter for next paragraph, type \"exit\" to quit" << endl;
+	
+	read.open(projName.c_str(), ios::in);
+	
+	string exit = ""; /*variable waits for user to
+	input "exit" to quit loop */
+	while(exit != "exit"){
+	string para = "";
+	
+	read >> para;
+	cout << para << endl;
+	
+	cin >> exit;
+	}
+	
+	cout << "returning to main menu..." << endl;
+	return;
 }
 
 void projectWorkspace(string projName){
