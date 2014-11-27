@@ -11,7 +11,8 @@ string newProject();
 program directory */
 string continueProject();
 
-/* allows a user to open a project file to be viewed and/or added to */
+/* allows a user to open a project file to be viewed 
+and/or added to */
 void viewProject();
 
 /* takes user input from newProject or continueProject
@@ -95,7 +96,6 @@ string newProject(){ /*gets data from user about project contents*/
 	return newProjName;
 }
 
-
 string continueProject(){ /* gets filename from user*/
 	string projName = "";
 	
@@ -128,10 +128,10 @@ void viewProject(){
 	while(exit != "exit"){
 	string para = "";
 	
-	read >> para;
+	getline(read, para, '\n');
 	cout << para << endl;
 	
-	cin >> exit;
+	getline(cin, exit, '\n');
 	}
 	
 	cout << "returning to main menu..." << endl;
@@ -161,10 +161,10 @@ void projectWorkspace(string projName){
 		if(par == "save"){
 			break;
 		}
-		write << par << endl;
+		write << par << "\n";
 	}
 	
 	/* closes output stream to project file */
 	write.close();
 	cout << "Saved!" << endl;
-}
+} 
